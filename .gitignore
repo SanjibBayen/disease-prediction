@@ -34,7 +34,6 @@ backend/__pycache__/
 backend/.env
 backend/logs/
 backend/temp/
-
 backend/data/
 
 # Frontend specific
@@ -85,14 +84,9 @@ docker-compose.override.yml
 Thumbs.db
 Desktop.ini
 
-# Project specific
-*.pkl
-*.sav
-*.joblib
-models/
-data_csv/
-!backend/models/.gitkeep
-!backend/data/.gitkeep
+# Project specific (REMOVED the exclusions for .pkl, .sav, .joblib, models/)
+# !backend/models/.gitkeep
+# !backend/data/.gitkeep
 
 # Secrets
 *.key
