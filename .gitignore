@@ -34,7 +34,7 @@ backend/__pycache__/
 backend/.env
 backend/logs/
 backend/temp/
-backend/models/
+
 backend/data/
 
 # Frontend specific
