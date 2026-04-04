@@ -90,7 +90,7 @@ disease-prediction/
 
 1. Clone the repository
 
-git clone https://github.com/MOHITRAJDEO12345/early-prediction-for-ml_proj.git  
+git clone https://github.com/SanjibBayen/disease-prediction.git  
 cd early-prediction-for-ml_proj  
 
 2. Create and activate a virtual environment
@@ -198,7 +198,7 @@ This project is developed for educational purposes only.
 
 Sanjib Bayen
 
-GitHub: https://github.com/sanjibbayen  
+GitHub: https://github.com/SanjibBayen/disease-prediction 
 Email: sanjibbayen11@gmail.com  
 
 ---
