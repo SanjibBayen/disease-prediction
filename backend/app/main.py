@@ -18,7 +18,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field, field_validator, model_validator, ValidationError
 from starlette.middleware.base import BaseHTTPMiddleware
-from ..services.model_manager import get_model_manager
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from services.model_manager import get_model_manager
 # Rate limiting
 try:
     from slowapi import Limiter, _rate_limit_exceeded_handler
@@ -103,7 +104,7 @@ async def lifespan(app: FastAPI):
 # ============================================================================
 
 app = FastAPI(
-    title="Disease Prediction AI API By Sanjib Bayen",
+    title="Disease Prediction AI API",
     version="3.0.0",
     description=""""
     ## Advanced Disease Prediction System
@@ -130,7 +131,7 @@ app = FastAPI(
     contact={
         "name": "Sanjib Bayen",
         "email": "sanjibbayen@gmail.com",
-        "url": "#"
+        "url": "https://github.com/SanjibBayen/disease-prediction"
     },
     license_info={
         "name": "MIT License",

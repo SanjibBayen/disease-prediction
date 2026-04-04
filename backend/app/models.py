@@ -697,7 +697,6 @@ class ErrorResponse(BaseModel):
 class MentalHealthInput(BaseModel):
     """Mental health prediction input - text-based analysis"""
     text: str = Field(
-        ...,
         min_length=10,
         max_length=5000,
         description="User's description of their mental state, symptoms, or feelings",
@@ -728,10 +727,10 @@ class MentalHealthInput(BaseModel):
 class MentalHealthResponse(BaseModel):
     """Mental health prediction response"""
     success: bool = True
-    depression_risk: float = Field(..., description="Depression risk percentage (0-100)", ge=0, le=100)
-    anxiety_risk: float = Field(..., description="Anxiety risk percentage (0-100)", ge=0, le=100)
-    risk_level: str = Field(..., description="Overall risk level: Low, Moderate, or High")
-    message: str = Field(..., description="Human-readable prediction message")
+    depression_risk: float = Field(ge=0, le=100, description="Depression risk percentage (0-100)")
+    anxiety_risk: float = Field(ge=0, le=100, description="Anxiety risk percentage (0-100)")
+    risk_level: str = Field(description="Overall risk level: Low, Moderate, or High")
+    message: str = Field(description="Human-readable prediction message")
     recommendations: List[str] = Field(default_factory=list, description="Personalized recommendations")
     timestamp: str = Field(default_factory=lambda: datetime.now().isoformat())
     
@@ -753,7 +752,6 @@ class MentalHealthResponse(BaseModel):
         }
     }
 
-
 # ============================================================================
 # BATCH PREDICTION MODELS
 # ============================================================================
@@ -761,7 +759,6 @@ class MentalHealthResponse(BaseModel):
 class BatchPredictionRequest(BaseModel):
     """Batch prediction request model"""
     requests: List[Dict[str, Any]] = Field(
-        ...,
         description="List of prediction requests",
         min_length=1,
         max_length=100
