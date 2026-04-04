@@ -32,7 +32,6 @@ An **AI-powered healthcare prediction system** that leverages machine learning t
 - [Project Structure](#project-structure)
 - [Deployment](#deployment)
 - [Disclaimer](#disclaimer)
-- [Future Enhancements](#future-enhancements)
 - [Contact](#contact)
 
 ---
