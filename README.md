@@ -1,9 +1,9 @@
-# 🏥 HealthPredict AI  
-### Early Prediction of Health & Lifestyle Diseases
+# 🏥 Disease Prediction AI  
+###  Prediction of Health & Lifestyle Diseases
 
-[![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)  
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-green.svg)](https://fastapi.tiangolo.com/)  
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  
+[![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-green.svg)](https://fastapi.tiangolo.com/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![React](https://img.shields.io/badge/React-18-blue.svg)](https://reactjs.org/)
 [![Vite](https://img.shields.io/badge/Vite-5-purple.svg)](https://vitejs.dev/)
 [![Render](https://img.shields.io/badge/Deployed-Render-purple.svg)](https://render.com)
@@ -265,18 +265,6 @@ docker run -p 8000:8000 healthpredict-backend
 - Predictions may not be accurate  
 
 Always consult a medical professional.
-
----
-
-## 🔮 Future Enhancements
-
-- Authentication system  
-- API rate limiting  
-- Database integration  
-- Wearable integration  
-- LSTM models  
-- Email reports  
-- Mobile app  
 
 ---
 
