@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: healthpredict-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+      - DEBUG=False
+      - RELOAD=False
+    volumes:
+      - ./backend/models:/app/models
+      - ./backend/data:/app/data
+      - ./backend/logs:/app/logs
+      - ./backend/.env:/app/.env
+    networks:
+      - healthpredict-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  healthpredict-network:
+    driver: bridge

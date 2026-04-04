@@ -1,0 +1,78 @@
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info
+dist
+build
+
+# Virtual Environments
+venv
+.venv
+env
+ENV
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Docker
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Logs
+logs
+*.log
+temp
+
+# Models (too large, will be mounted as volume)
+*.pkl
+*.sav
+*.joblib
+models/
+
+# Data
+data/
+data_csv/
+
+# Frontend
+frontend/node_modules
+frontend/.vite
+frontend/dist
+frontend/build
+
+# Testing
+.pytest_cache
+.coverage
+htmlcov
+.tox
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Documentation
+*.md
+!README.md
+docs/
+
+# Scripts
+test_*.ps1
+test_*.sh
