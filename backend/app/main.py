@@ -106,24 +106,24 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="Disease Prediction AI API",
     version="3.0.0",
-    description=""""
-    ## Advanced Disease Prediction System
-    
-    This API provides machine learning-powered predictions for various health conditions.
-    
-    ### Features
-    - Diabetes Risk Prediction
-    - Asthma Risk Assessment
-    - Cardiovascular Disease Prediction
-    - Stroke Risk Analysis
-    - Hypertension Risk Evaluation
-    - Sleep Health Analysis
-    - Mental Health Assessment
-    
-    ### Rate Limits
-    - 100 requests per minute per IP
-    - 1000 requests per hour per IP
-    """,
+    description="""
+## Advanced Disease Prediction System
+
+This API provides machine learning-powered predictions for various health conditions.
+
+### Features
+- Diabetes Risk Prediction
+- Asthma Risk Assessment
+- Cardiovascular Disease Prediction
+- Stroke Risk Analysis
+- Hypertension Risk Evaluation
+- Sleep Health Analysis
+- Mental Health Assessment
+
+### Rate Limits
+- 100 requests per minute per IP
+- 1000 requests per hour per IP
+""",
     docs_url="/docs",
     redoc_url="/redoc",
     openapi_url="/openapi.json",
