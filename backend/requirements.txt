@@ -1,4 +1,56 @@
-# Core
+# =========================
+# Core (REQUIRED)
+# =========================
+# fastapi==0.115.0
+# uvicorn[standard]==0.30.0
+# python-multipart==0.0.9
+# python-dotenv==1.0.1
+
+# =========================
+# Data Processing (REQUIRED)
+# =========================
+# numpy>=1.26.0,<2.0.0
+# pandas>=2.1.0
+
+# =========================
+# Machine Learning (REQUIRED)
+# =========================
+# scikit-learn>=1.5.0
+# xgboost>=2.1.0
+# joblib>=1.4.0
+
+# =========================
+# Deep Learning (OPTIONAL - COMMENTED)
+# =========================
+# torch>=2.5.0
+# transformers>=4.46.0
+# huggingface_hub>=0.24.0
+
+# =========================
+# AI APIs (OPTIONAL - COMMENTED)
+# =========================
+# google-generativeai>=0.8.0
+
+# =========================
+# Visualization (OPTIONAL - COMMENTED)
+# =========================
+# matplotlib>=3.9.0
+# seaborn>=0.13.0
+
+# =========================
+# Security (USE ONLY IF AUTH SYSTEM EXISTS)
+# =========================
+# python-jose[cryptography]>=3.3.0
+# passlib[bcrypt]>=1.7.4
+
+# =========================
+# Utilities
+# =========================
+# httpx>=0.27.0
+# websockets>=13.0
+
+
+# Core Web Framework
 fastapi==0.115.0
 uvicorn[standard]==0.30.0
 python-multipart==0.0.9
@@ -8,27 +60,10 @@ python-dotenv==1.0.1
 numpy>=1.26.0,<2.0.0
 pandas>=2.1.0
 
-# Machine Learning
+# Machine Learning Models (for other diseases)
 scikit-learn>=1.5.0
 xgboost>=2.1.0
 joblib>=1.4.0
 
-# Deep Learning (Optional - skip if not needed)
-torch>=2.5.0
-transformers>=4.46.0
-huggingface_hub>=0.24.0
-
-# AI (Optional)
-google-generativeai>=0.8.0
-
-# Visualization
-matplotlib>=3.9.0
-seaborn>=0.13.0
-
-# Security
-python-jose[cryptography]>=3.3.0
-passlib[bcrypt]>=1.7.4
-
-# Utilities
+# HTTP Client
 httpx>=0.27.0
-websockets>=13.0

@@ -133,8 +133,8 @@ MODEL_CONFIGS = [
         'preprocessor': None,
         'alt_preprocessors': [],
         'encoder': None,
-        'accuracy': 0.82,
-        'description': 'Transformer-based model for depression and anxiety detection from text',
+        'accuracy': 0.75,  # Lower accuracy for fallback / ALT 0.82
+        'description': 'Mental health assessment (fallback mode - no ML)', #'Transformer-based model for depression and anxiety detection from text'
         'version': '1.0',
         'required_features': ['text']
     },
