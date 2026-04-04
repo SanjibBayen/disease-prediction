@@ -1,7 +1,7 @@
 """
 HealthPredict AI - Main Application
 FastAPI Backend for Disease Prediction System
-
+By Sanjib Bayen
 Version: 3.0.0
 """
 
@@ -18,7 +18,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field, field_validator, model_validator, ValidationError
 from starlette.middleware.base import BaseHTTPMiddleware
-
+from ..services.model_manager import get_model_manager
 # Rate limiting
 try:
     from slowapi import Limiter, _rate_limit_exceeded_handler
@@ -103,9 +103,9 @@ async def lifespan(app: FastAPI):
 # ============================================================================
 
 app = FastAPI(
-    title="HealthPredict AI API",
+    title="Disease Prediction AI API By Sanjib Bayen",
     version="3.0.0",
-    description="""
+    description=""""
     ## Advanced Disease Prediction System
     
     This API provides machine learning-powered predictions for various health conditions.
@@ -128,9 +128,9 @@ app = FastAPI(
     openapi_url="/openapi.json",
     lifespan=lifespan,
     contact={
-        "name": "HealthPredict AI Support",
-        "email": "support@healthpredict.ai",
-        "url": "https://healthpredict.ai"
+        "name": "Sanjib Bayen",
+        "email": "sanjibbayen@gmail.com",
+        "url": "#"
     },
     license_info={
         "name": "MIT License",
@@ -356,7 +356,12 @@ async def root():
 async def health_check():
     """Health check endpoint with model status"""
     try:
-        from services.model_manager import get_model_manager
+        # Try different import paths
+        try:
+            from app.dependencies import get_model_manager
+        except ImportError:
+            from services.model_manager import get_model_manager
+        
         model_manager = get_model_manager()
         
         return HealthResponse(
