@@ -129,7 +129,7 @@ MODEL_CONFIGS = [
         'name': 'mental_health',
         'file': 'mental/MentalH.pkl',
         'alt_files': ['mental/mental_health_model.pkl'],
-        'type': ModelType.PICKLE,
+        'type': ModelType.JOBLIB,
         'preprocessor': None,
         'alt_preprocessors': [],
         'encoder': None,

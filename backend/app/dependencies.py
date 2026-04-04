@@ -152,7 +152,7 @@ MODEL_CONFIGS: List[ModelConfig] = [
     ModelConfig(
         name='mental_health',
         path='mental/MentalH.pkl',
-        type=ModelType.PICKLE,
+        type=ModelType.JOBLIB,
         alt_paths=['mental/mental_health_model.pkl'],
         accuracy=0.82,
         description='Transformer-based model for depression and anxiety detection',
