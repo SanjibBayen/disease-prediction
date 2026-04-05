@@ -14,6 +14,8 @@ from typing import Dict, Any, Optional, List, Tuple, Union
 from pathlib import Path
 import logging
 from datetime import datetime
+import pytz
+ist = pytz.timezone('Asia/Kolkata')
 from functools import lru_cache
 import hashlib
 import json
@@ -435,7 +437,7 @@ class ModelManager:
             'models': self.list_available_models(),
             'load_errors': self._load_errors,
             'models_path': str(self.models_path),
-            'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            'timestamp':  datetime.now(ist).strftime("%Y-%m-%d %H:%M:%S")
         }
     
     def validate_model(self, name: str, sample_input: Dict) -> Tuple[bool, str]:
@@ -589,7 +591,7 @@ class ModelManager:
             self.model_metadata[name] = {
                 'accuracy': config['accuracy'],
                 'description': config['description'],
-                'loaded_at': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                'loaded_at':  datetime.now(ist).strftime("%Y-%m-%d %H:%M:%S"),
                 'model_path': str(model_path),
                 'model_type': config['type'],
                 'version': config.get('version', 'unknown'),
@@ -677,7 +679,7 @@ class ModelManager:
         """
         try:
             status = {
-                'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                'timestamp':  datetime.now(ist).strftime("%Y-%m-%d %H:%M:%S"),
                 'models_path': str(self.models_path),
                 'total_models': len(MODEL_CONFIGS),
                 'loaded_models': len(self.models),

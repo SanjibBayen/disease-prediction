@@ -4,10 +4,13 @@ Health check endpoints
 
 from fastapi import APIRouter, HTTPException
 from datetime import datetime
+import pytz
 from app.dependencies import get_model_manager
 from app.models import HealthResponse
 
 router = APIRouter()
+
+ist = pytz.timezone('Asia/Kolkata')
 
 @router.get("/health", response_model=HealthResponse, tags=["Health"])
 async def health_check():
@@ -22,7 +25,7 @@ async def health_check():
             models_loaded=len(model_manager.models),
             models=list(model_manager.models.keys()),
             version="3.0.0",
-            timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            timestamp= datetime.now(ist).strftime("%Y-%m-%d %H:%M:%S")
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

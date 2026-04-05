@@ -9,6 +9,8 @@ import numpy as np
 import pandas as pd
 from typing import Dict, Any, List, Optional, Tuple, Union
 from datetime import datetime
+import pytz
+ist = pytz.timezone('Asia/Kolkata')
 import logging
 from functools import wraps
 from dataclasses import dataclass
@@ -51,7 +53,7 @@ class PredictionResult:
     
     def __post_init__(self):
         if self.timestamp is None:
-            self.timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            self.timestamp =  datetime.now(ist).strftime("%Y-%m-%d %H:%M:%S")
     
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary"""

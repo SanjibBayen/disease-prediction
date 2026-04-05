@@ -8,6 +8,8 @@ and response formatting for the HealthPredict AI system.
 from pydantic import BaseModel, Field, field_validator, model_validator
 from typing import List, Optional, Dict, Any
 from datetime import datetime
+import pytz
+ist = pytz.timezone('Asia/Kolkata')
 import re
 import logging
 
@@ -618,7 +620,7 @@ class PredictionResponse(BaseModel):
     risk_level: str = Field(..., description="Risk level (Low/Moderate/High)", example="Low")
     message: str = Field(..., description="Human-readable prediction message", example="No signs of diabetes detected")
     recommendations: List[str] = Field(default_factory=list, description="Personalized recommendations")
-    timestamp: str = Field(default_factory=lambda: datetime.now().strftime("%Y-%m-%d %H:%M:%S"), description="Prediction timestamp")
+    timestamp: str = Field(default_factory=lambda:  datetime.now(ist).strftime("%Y-%m-%d %H:%M:%S"), description="Prediction timestamp")
     
     @field_validator('probability')
     @classmethod
@@ -660,7 +662,7 @@ class HealthResponse(BaseModel):
     models_loaded: int = Field(..., description="Number of loaded models", example=6)
     models: List[str] = Field(..., description="List of loaded model names", example=["diabetes", "asthma", "cardio"])
     version: str = Field(..., description="API version", example="3.0.0")
-    timestamp: str = Field(default_factory=lambda: datetime.now().strftime("%Y-%m-%d %H:%M:%S"), description="Response timestamp")
+    timestamp: str = Field(default_factory=lambda:  datetime.now(ist).strftime("%Y-%m-%d %H:%M:%S"), description="Response timestamp")
     
     model_config = {
         "json_schema_extra": {
@@ -681,7 +683,7 @@ class ErrorResponse(BaseModel):
     error: str = Field(..., description="Error type/code", example="ValidationError")
     message: str = Field(..., description="Human-readable error message", example="Invalid input data")
     details: Optional[Dict[str, Any]] = Field(default=None, description="Optional detailed error information")
-    timestamp: str = Field(default_factory=lambda: datetime.now().strftime("%Y-%m-%d %H:%M:%S"), description="Error timestamp")
+    timestamp: str = Field(default_factory=lambda:  datetime.now(ist).strftime("%Y-%m-%d %H:%M:%S"), description="Error timestamp")
     
     model_config = {
         "json_schema_extra": {
@@ -733,7 +735,7 @@ class MentalHealthResponse(BaseModel):
     risk_level: str = Field(description="Overall risk level: Low, Moderate, or High")
     message: str = Field(description="Human-readable prediction message")
     recommendations: List[str] = Field(default_factory=list, description="Personalized recommendations")
-    timestamp: str = Field(default_factory=lambda: datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    timestamp: str = Field(default_factory=lambda:  datetime.now(ist).strftime("%Y-%m-%d %H:%M:%S"))
     
     model_config = {
         "json_schema_extra": {
@@ -853,7 +855,7 @@ class SleepHealthResponse(BaseModel):
     recommendations: List[str] = Field(default_factory=list, description="Sleep hygiene recommendations")
     sleep_score: Optional[float] = Field(None, description="Overall sleep quality score (0-100)")
     factors_affected: Optional[List[str]] = Field(None, description="Sleep factors that need attention")
-    timestamp: str = Field(default_factory=lambda: datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    timestamp: str = Field(default_factory=lambda:  datetime.now(ist).strftime("%Y-%m-%d %H:%M:%S"))
     
     class Config:
         json_schema_extra = {
@@ -899,6 +901,6 @@ class BatchPredictionResponse(BaseModel):
     success: bool = Field(default=True, description="Whether all predictions were successful")
     results: List[PredictionResponse] = Field(..., description="List of individual prediction results")
     total_processed: int = Field(..., description="Total number of predictions processed")
-    timestamp: str = Field(default_factory=lambda: datetime.now().strftime("%Y-%m-%d %H:%M:%S"), description="Response timestamp")
+    timestamp: str = Field(default_factory=lambda:  datetime.now(ist).strftime("%Y-%m-%d %H:%M:%S"), description="Response timestamp")
 
     
