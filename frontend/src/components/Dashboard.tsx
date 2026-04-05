@@ -304,7 +304,7 @@ export default function Dashboard({ onSelect }: DashboardProps) {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <Card className="lg:col-span-2 border-slate-200 bg-white overflow-hidden">
             <CardContent className="p-8">
               <div className="flex flex-col md:flex-row gap-8 items-center">
@@ -383,7 +383,7 @@ export default function Dashboard({ onSelect }: DashboardProps) {
               </button>
             </CardContent>
           </Card>
-        </div>
+        </div> */}
       </section>
     </div>
   );

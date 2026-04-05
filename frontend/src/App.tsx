@@ -221,7 +221,7 @@ export default function App() {
           </AnimatePresence>
         </div>
 
-        <footer className="w-full border-t border-slate-200 bg-white/50 backdrop-blur-sm mt-auto">
+        {/* <footer className="w-full border-t border-slate-200 bg-white/50 backdrop-blur-sm mt-auto">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-12">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
               <div className="col-span-1 md:col-span-2 space-y-6">
@@ -317,7 +317,7 @@ export default function App() {
               </div>
             </div>
           </div>
-        </footer>
+        </footer> */}
       </main>
 
       <Toaster position="top-right" />
