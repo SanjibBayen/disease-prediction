@@ -67,7 +67,7 @@ class PredictionResult:
     message: str
     recommendations: List[str]
     model_accuracy: float
-    timestamp: str = field(default_factory=lambda: datetime.now().isoformat())
+    timestamp: str = field(default_factory=lambda: datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     
     def to_dict(self) -> Dict:
         """Convert to dictionary"""
@@ -341,7 +341,7 @@ class ModelManager:
             ],
             'load_errors': self._load_errors,
             'base_path': str(self.base_path),
-            'timestamp': datetime.now().isoformat()
+            'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
     
     def get_model_summary(self) -> str:
@@ -401,7 +401,7 @@ class ModelManager:
                 'risk_level': risk_level,
                 'message': self._get_prediction_message('diabetes', prediction),
                 'recommendations': recommendations,
-                'timestamp': datetime.now().isoformat()
+                'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             }
             
         except Exception as e:
@@ -436,7 +436,7 @@ class ModelManager:
                 'risk_level': risk_level,
                 'message': self._get_prediction_message('asthma', prediction),
                 'recommendations': recommendations,
-                'timestamp': datetime.now().isoformat()
+                'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             }
             
         except Exception as e:
@@ -464,7 +464,7 @@ class ModelManager:
                 'risk_level': risk_level,
                 'message': self._get_prediction_message('cardio', prediction),
                 'recommendations': recommendations,
-                'timestamp': datetime.now().isoformat()
+                'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             }
             
         except Exception as e:
@@ -492,7 +492,7 @@ class ModelManager:
                 'risk_level': risk_level,
                 'message': self._get_prediction_message('stroke', prediction),
                 'recommendations': recommendations,
-                'timestamp': datetime.now().isoformat()
+                'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             }
             
         except Exception as e:
@@ -526,7 +526,7 @@ class ModelManager:
                 'risk_level': risk_level,
                 'message': self._get_prediction_message('hypertension', prediction),
                 'recommendations': recommendations,
-                'timestamp': datetime.now().isoformat()
+                'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             }
             
         except Exception as e:
@@ -663,7 +663,7 @@ class ModelManager:
             self.model_metadata[name] = {
                 'accuracy': config.accuracy,
                 'description': config.description,
-                'loaded_at': datetime.now().isoformat(),
+                'loaded_at': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 'model_path': str(model_path),
                 'model_type': config.type.value,
                 'version': config.version,
@@ -784,7 +784,7 @@ class ModelManager:
             'risk_level': RiskLevel.HIGH.value,
             'message': message,
             'recommendations': ['Please check input values or contact support'],
-            'timestamp': datetime.now().isoformat()
+            'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
     
     def _parse_mental_health_output(self, result: Any) -> Dict:

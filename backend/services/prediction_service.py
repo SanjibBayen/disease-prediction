@@ -51,7 +51,7 @@ class PredictionResult:
     
     def __post_init__(self):
         if self.timestamp is None:
-            self.timestamp = datetime.now().isoformat()
+            self.timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary"""

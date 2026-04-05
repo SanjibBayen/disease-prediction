@@ -32,7 +32,7 @@ async def predict_diabetes(data: DiabetesInput):
         return {
             "success": True,
             **result,
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -47,5 +47,5 @@ async def health_check():
         "models_loaded": len(model_manager.models),
         "models": list(model_manager.models.keys()),
         "version": "3.0.0",
-        "timestamp": datetime.now().isoformat()
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }

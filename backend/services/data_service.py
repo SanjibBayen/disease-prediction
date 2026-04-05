@@ -39,7 +39,7 @@ class DataService:
                         'rows': len(pd.read_csv(file_path)),
                         'columns': len(df.columns),
                         'column_names': df.columns.tolist(),
-                        'last_modified': datetime.fromtimestamp(os.path.getmtime(file_path)).isoformat(),
+                        'last_modified': datetime.fromtimestamp(os.path.getmtime(file_path)).strftime("%Y-%m-%d %H:%M:%S"),
                         'dtypes': df.dtypes.astype(str).to_dict()
                     }
                     logger.info(f"Loaded metadata for {file}")

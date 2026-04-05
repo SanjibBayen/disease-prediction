@@ -357,7 +357,7 @@ async def root():
         "message": "HealthPredict AI API is running",
         "version": "3.0.0",
         "status": "online",
-        "timestamp": datetime.now().isoformat(),
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "endpoints": [
             {"path": "/docs", "method": "GET", "description": "API documentation"},
             {"path": "/api/health", "method": "GET", "description": "Health check"},
@@ -388,7 +388,7 @@ async def health_check():
             models_loaded=len(model_manager.models),
             models=list(model_manager.models.keys()),
             version="3.0.0",
-            timestamp=datetime.now().isoformat()
+            timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         )
     except Exception as e:
         logger.error(f"Health check error: {e}")
@@ -397,7 +397,7 @@ async def health_check():
             models_loaded=0,
             models=[],
             version="3.0.0",
-            timestamp=datetime.now().isoformat()
+            timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         )
 
 
@@ -726,7 +726,7 @@ async def validation_exception_handler(request: Request, exc: ValidationError):
             "error": "Validation Error",
             "message": "Invalid input data",
             "details": exc.errors(),
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
     )
 
@@ -741,7 +741,7 @@ async def http_exception_handler(request: Request, exc: HTTPException):
             "error": "Request Error",
             "message": exc.detail,
             "status_code": exc.status_code,
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
     )
 
@@ -756,7 +756,7 @@ async def global_exception_handler(request: Request, exc: Exception):
             "success": False,
             "error": "Internal Server Error",
             "message": "An unexpected error occurred",
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
     )
 

@@ -435,7 +435,7 @@ class ModelManager:
             'models': self.list_available_models(),
             'load_errors': self._load_errors,
             'models_path': str(self.models_path),
-            'timestamp': datetime.now().isoformat()
+            'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
     
     def validate_model(self, name: str, sample_input: Dict) -> Tuple[bool, str]:
@@ -589,7 +589,7 @@ class ModelManager:
             self.model_metadata[name] = {
                 'accuracy': config['accuracy'],
                 'description': config['description'],
-                'loaded_at': datetime.now().isoformat(),
+                'loaded_at': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 'model_path': str(model_path),
                 'model_type': config['type'],
                 'version': config.get('version', 'unknown'),
@@ -677,7 +677,7 @@ class ModelManager:
         """
         try:
             status = {
-                'timestamp': datetime.now().isoformat(),
+                'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 'models_path': str(self.models_path),
                 'total_models': len(MODEL_CONFIGS),
                 'loaded_models': len(self.models),
