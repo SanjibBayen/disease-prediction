@@ -2,8 +2,8 @@
 Advanced Model Management System
 Handles loading, caching, and prediction for all ML models
 
-Version: 2.0
-Author: HealthPredict AI Team
+Version: 3.0.0
+Author: Sanjib Bayen
 """
 
 import os
