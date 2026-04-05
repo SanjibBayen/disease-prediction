@@ -169,8 +169,18 @@ else:
 # CORS MIDDLEWARE
 # ============================================================================
 
-ALLOWED_ORIGINS = os.getenv("CORS_ORIGINS", "http://localhost:3000,http://localhost:5173").split(",")
+cors_origins = os.getenv("CORS_ORIGINS", "http://localhost:3000,http://localhost:5173")
+ALLOWED_ORIGINS = [origin.strip() for origin in cors_origins.split(",")]
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=ALLOWED_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization", "X-Requested-With", "X-Request-ID"],
+    expose_headers=["X-Request-ID", "X-Process-Time"],
+    max_age=3600,
+)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,
