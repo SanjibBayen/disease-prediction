@@ -1,5 +1,29 @@
-// Prediction Input Types
-export interface DiabetesData {
+export interface PredictionResponse {
+  success: boolean;
+  prediction: number;
+  probability: number;
+  risk_level: string;
+  message: string;
+  recommendations: string[];
+  timestamp: string;
+}
+
+export interface MentalHealthResponse {
+  success: boolean;
+  depression_risk: number;
+  anxiety_risk: number;
+  risk_level: string;
+  message: string;
+  recommendations: string[];
+  timestamp: string;
+}
+
+export interface SleepHealthResponse extends PredictionResponse {
+  sleep_score: number | null;
+  factors_affected: string[] | null;
+}
+
+export interface DiabetesInput {
   pregnancies: number;
   glucose: number;
   blood_pressure: number;
@@ -10,7 +34,7 @@ export interface DiabetesData {
   age: number;
 }
 
-export interface AsthmaData {
+export interface AsthmaInput {
   gender_male: number;
   smoking_ex: number;
   smoking_non: number;
@@ -18,19 +42,19 @@ export interface AsthmaData {
   peak_flow: number;
 }
 
-export interface CardioData {
+export interface CardioInput {
+  active: number;
   age: number;
+  alco: number;
   ap_hi: number;
   ap_lo: number;
   cholesterol: number;
   gluc: number;
   smoke: number;
-  alco: number;
-  active: number;
   weight: number;
 }
 
-export interface StrokeData {
+export interface StrokeInput {
   age: number;
   hypertension: number;
   heart_disease: number;
@@ -40,7 +64,7 @@ export interface StrokeData {
   smoking_status: number;
 }
 
-export interface HypertensionData {
+export interface HypertensionInput {
   male: number;
   age: number;
   cigsPerDay: number;
@@ -53,7 +77,7 @@ export interface HypertensionData {
   glucose: number;
 }
 
-export interface SleepData {
+export interface SleepInput {
   gender: string;
   age: number;
   occupation: string;
@@ -67,30 +91,6 @@ export interface SleepData {
   daily_steps: number;
 }
 
-export interface PredictionResult {
-  success: boolean;
-  prediction: number;
-  probability: number;
-  risk_level: 'Low' | 'Moderate' | 'High';
-  message: string;
-  recommendations: string[];
-  timestamp: string;
-}
-
-export interface HealthCheckResponse {
-  status: string;
-  models_loaded: number;
-  models: string[];
-  version: string;
-  timestamp: string;
-}
-
-export interface MentalHealthResponse {
-  success: boolean;
-  depression_risk: number;
-  anxiety_risk: number;
-  risk_level: string;
-  message: string;
-  recommendations: string[];
-  timestamp: string;
+export interface MentalHealthInput {
+  text: string;
 }
