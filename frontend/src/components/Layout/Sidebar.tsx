@@ -21,16 +21,17 @@ const navItems = [
   { path: '/cardiovascular', icon: Heart, label: 'Cardiovascular' },
   { path: '/stroke', icon: Brain, label: 'Stroke' },
   { path: '/asthma', icon: Activity, label: 'Asthma' },
+  { path: '/mental-health', icon: Brain, label: 'Mental Health' },
   { path: '/sleep', icon: Moon, label: 'Sleep Health' },
-  { path: '/consultant', icon: Stethoscope, label: 'Medical Consultant' },
-  { path: '/analytics', icon: BarChart3, label: 'Analytics' },
-  { path: '/settings', icon: Settings, label: 'Settings' },
+  { path: '/consultant', icon: Stethoscope, label: 'Consultant' },
+  
+  
+
 ];
 
 const Sidebar: React.FC = () => {
   return (
     <div className="fixed left-0 top-0 h-full w-64 bg-gradient-to-b from-gray-900 to-gray-800 text-white shadow-2xl z-50">
-      {/* Logo */}
       <div className="p-6 border-b border-gray-700">
         <div className="flex items-center justify-center space-x-2">
           <div className="text-3xl">🏥</div>
@@ -41,16 +42,15 @@ const Sidebar: React.FC = () => {
         </div>
       </div>
 
-      {/* Navigation */}
-      <nav className="mt-8">
+      <nav className="mt-8 px-4">
         {navItems.map((item) => (
           <NavLink
             key={item.path}
             to={item.path}
             className={({ isActive }) =>
-              `flex items-center px-6 py-3 text-gray-300 transition-all duration-200 ${
+              `flex items-center px-4 py-3 my-1 text-gray-300 rounded-xl transition-all duration-200 ${
                 isActive
-                  ? 'bg-gradient-to-r from-primary-600 to-secondary-600 text-white shadow-lg'
+                  ? 'gradient-bg text-white shadow-lg'
                   : 'hover:bg-gray-700 hover:text-white'
               }`
             }
@@ -61,12 +61,11 @@ const Sidebar: React.FC = () => {
         ))}
       </nav>
 
-      {/* Footer */}
       <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-gray-700">
         <div className="flex items-center justify-between">
           <div className="text-xs text-gray-400">
-            <p>Version 3.0</p>
-            <p>© 2024</p>
+            <p>Version 3.0.0</p>
+            <p>© 2025 HealthPredict</p>
           </div>
           <button className="p-2 hover:bg-gray-700 rounded-lg transition-colors">
             <LogOut className="w-4 h-4" />

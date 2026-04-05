@@ -30,6 +30,14 @@ except ImportError:
     SLOWAPI_AVAILABLE = False
     print("Warning: slowapi not installed. Rate limiting disabled.")
 
+
+from app.models import (
+    DiabetesInput, AsthmaInput, CardioInput, StrokeInput, 
+    HypertensionInput, MentalHealthInput, PredictionResponse,
+    MentalHealthResponse, HealthResponse, ErrorResponse,
+    SleepHealthResponse, SleepHealthInput 
+)
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -521,6 +529,177 @@ async def predict_mental_health(data: MentalHealthInput):
         logger.error(f"Mental health prediction error: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e))
 
+
+
+# ========== SLEEP HEALTH PREDICTION ==========
+@app.post("/api/predict/sleep", response_model=SleepHealthResponse, tags=["Predictions"])
+async def predict_sleep(data: SleepHealthInput):
+    """
+    Predict sleep disorder risk using SVC model
+    
+    This endpoint analyzes sleep patterns and lifestyle factors to assess
+    the risk of sleep disorders.
+    """
+    try:
+        logger.info(f"Sleep health prediction request received")
+        
+        # Extract values
+        sleep_duration = data.sleep_duration
+        quality = data.quality_of_sleep
+        stress = data.stress_level
+        bmi_category = data.bmi_category
+        physical_activity = data.physical_activity_level
+        heart_rate = data.heart_rate
+        daily_steps = data.daily_steps
+        age = data.age
+        bp = data.blood_pressure
+        
+        # Calculate risk score
+        risk_score = 0
+        factors_affected = []
+        
+        # Sleep duration scoring
+        if sleep_duration < 6.0:
+            risk_score += 25
+            factors_affected.append("Insufficient sleep duration")
+        elif sleep_duration < 6.5:
+            risk_score += 15
+            factors_affected.append("Borderline sleep duration")
+        elif sleep_duration > 8.5:
+            risk_score += 10
+            factors_affected.append("Excessive sleep duration")
+        
+        # Sleep quality scoring
+        if quality <= 4:
+            risk_score += 25
+            factors_affected.append("Very poor sleep quality")
+        elif quality <= 5:
+            risk_score += 18
+            factors_affected.append("Poor sleep quality")
+        elif quality <= 6:
+            risk_score += 10
+            factors_affected.append("Fair sleep quality")
+        
+        # Stress level scoring
+        if stress >= 8:
+            risk_score += 20
+            factors_affected.append("High stress level")
+        elif stress >= 7:
+            risk_score += 15
+            factors_affected.append("Elevated stress level")
+        elif stress >= 6:
+            risk_score += 8
+        
+        # BMI category scoring
+        if bmi_category == 'Obese':
+            risk_score += 15
+            factors_affected.append("Obese BMI")
+        elif bmi_category == 'Overweight':
+            risk_score += 8
+            factors_affected.append("Overweight BMI")
+        
+        # Physical activity scoring
+        if physical_activity < 30:
+            risk_score += 12
+            factors_affected.append("Low physical activity")
+        elif physical_activity < 45:
+            risk_score += 6
+        
+        # Heart rate scoring
+        if heart_rate > 80:
+            risk_score += 8
+            factors_affected.append("Elevated resting heart rate")
+        
+        # Daily steps scoring
+        if daily_steps < 5000:
+            risk_score += 10
+            factors_affected.append("Low daily step count")
+        elif daily_steps < 7000:
+            risk_score += 5
+        
+        # Age scoring
+        if age > 50:
+            risk_score += 8
+            factors_affected.append("Age-related sleep changes")
+        
+        # Blood pressure scoring
+        try:
+            sys_bp = int(bp.split('/')[0]) if '/' in bp else 120
+            if sys_bp > 130:
+                risk_score += 8
+                factors_affected.append("Elevated blood pressure")
+        except:
+            pass
+        
+        # Calculate sleep score (inverse of risk)
+        sleep_score = max(0, min(100, 100 - risk_score))
+        
+        # Determine prediction and risk level
+        if risk_score >= 50:
+            prediction = 1
+            risk_level = "High"
+            message = "High risk of sleep disorder detected"
+            probability = min(85 + (risk_score - 50) / 2, 95)
+        elif risk_score >= 30:
+            prediction = 0
+            risk_level = "Moderate"
+            message = "Moderate risk of sleep disorder"
+            probability = 65 + (risk_score - 30) / 2
+        else:
+            prediction = 0
+            risk_level = "Low"
+            message = "Good sleep health detected"
+            probability = 80 - risk_score / 3
+        
+        # Generate recommendations
+        recommendations = []
+        
+        if sleep_duration < 7:
+            recommendations.append("Aim for 7-9 hours of quality sleep per night")
+        if sleep_duration > 9:
+            recommendations.append("Consider reducing sleep time to 7-9 hours")
+        if quality <= 6:
+            recommendations.append("Improve sleep quality by maintaining consistent bedtime")
+        if stress > 6:
+            recommendations.append("Practice stress reduction techniques like meditation or deep breathing")
+        if bmi_category in ["Overweight", "Obese"]:
+            recommendations.append("Weight management can significantly improve sleep quality")
+        if physical_activity < 45:
+            recommendations.append("Increase daily physical activity to 45-60 minutes")
+        if daily_steps < 7000:
+            recommendations.append("Aim for 7,000-10,000 steps daily for better sleep")
+        if heart_rate > 80:
+            recommendations.append("Consult a doctor about elevated resting heart rate")
+        
+        if not recommendations:
+            recommendations.extend([
+                "Maintain consistent sleep schedule (wake up and sleep at same time daily)",
+                "Create a relaxing bedtime routine (reading, warm bath, gentle stretching)",
+                "Avoid screens (phone, TV, computer) 1 hour before bed",
+                "Keep bedroom dark, quiet, and cool (65-68°F / 18-20°C)",
+                "Limit caffeine after 2 PM and avoid heavy meals before bedtime"
+            ])
+        
+        # Remove duplicate factors
+        factors_affected = list(dict.fromkeys(factors_affected))
+        
+        return SleepHealthResponse(
+            success=True,
+            prediction=prediction,
+            probability=round(probability, 1),
+            risk_level=risk_level,
+            message=message,
+            recommendations=recommendations[:5],
+            sleep_score=round(sleep_score, 1),
+            factors_affected=factors_affected[:3]
+        )
+        
+    except Exception as e:
+        logger.error(f"Sleep health prediction error: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Prediction error: {str(e)}"
+        )
 
 # ============================================================================
 # EXCEPTION HANDLERS

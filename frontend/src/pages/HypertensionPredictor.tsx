@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Activity, TrendingUp, AlertCircle, CheckCircle, Shield, Droplets } from 'lucide-react';
+import { Activity, TrendingUp, AlertCircle, CheckCircle, Shield, Heart } from 'lucide-react';
 import { useApi } from '../hooks/useApi';
 import { healthAPI } from '../services/api';
-import { DiabetesData, PredictionResult } from '../types';
+import { HypertensionData, PredictionResult } from '../types';
 import LoadingSpinner from '../components/Common/LoadingSpinner';
 
-const DiabetesPredictor: React.FC = () => {
-  const [formData, setFormData] = useState<DiabetesData>({
-    pregnancies: 1,
-    glucose: 120,
-    blood_pressure: 80,
-    skin_thickness: 20,
-    insulin: 79,
-    bmi: 25.5,
-    diabetes_pedigree: 0.5,
-    age: 35,
+const HypertensionPredictor: React.FC = () => {
+  const [formData, setFormData] = useState<HypertensionData>({
+    male: 1,
+    age: 50,
+    cigsPerDay: 0,
+    BPMeds: 0,
+    totChol: 200,
+    sysBP: 120,
+    diaBP: 80,
+    BMI: 24.5,
+    heartRate: 72,
+    glucose: 90,
   });
   
   const [result, setResult] = useState<PredictionResult | null>(null);
@@ -23,27 +25,16 @@ const DiabetesPredictor: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const data = await predict(healthAPI.predictDiabetes(formData), {
+    const data = await predict(healthAPI.predictHypertension(formData), {
       showError: true,
-      successMessage: 'Prediction completed successfully',
+      successMessage: 'Hypertension risk assessment completed',
     });
     if (data) setResult(data);
   };
 
-  const handleChange = (name: keyof DiabetesData, value: string) => {
+  const handleChange = (name: keyof HypertensionData, value: string) => {
     setFormData({ ...formData, [name]: parseFloat(value) || 0 });
   };
-
-  const inputFields = [
-    { name: 'pregnancies', label: 'Number of Pregnancies', min: 0, max: 20, step: 1, icon: '👶', unit: 'count' },
-    { name: 'glucose', label: 'Glucose Level', min: 0, max: 300, step: 1, icon: '🩸', unit: 'mg/dL' },
-    { name: 'blood_pressure', label: 'Blood Pressure', min: 0, max: 200, step: 1, icon: '❤️', unit: 'mmHg' },
-    { name: 'skin_thickness', label: 'Skin Thickness', min: 0, max: 100, step: 1, icon: '📏', unit: 'mm' },
-    { name: 'insulin', label: 'Insulin Level', min: 0, max: 900, step: 1, icon: '💉', unit: 'mu U/ml' },
-    { name: 'bmi', label: 'BMI', min: 0, max: 70, step: 0.1, icon: '⚖️', unit: 'kg/m²' },
-    { name: 'diabetes_pedigree', label: 'Diabetes Pedigree', min: 0, max: 2.5, step: 0.01, icon: '📊', unit: 'score' },
-    { name: 'age', label: 'Age', min: 1, max: 120, step: 1, icon: '🎂', unit: 'years' },
-  ];
 
   const getRiskColor = (level: string) => {
     switch (level) {
@@ -63,6 +54,17 @@ const DiabetesPredictor: React.FC = () => {
     }
   };
 
+  const inputFields = [
+    { name: 'age', label: 'Age', min: 32, max: 70, step: 1, icon: '🎂', unit: 'years' },
+    { name: 'cigsPerDay', label: 'Cigarettes per Day', min: 0, max: 70, step: 1, icon: '🚬', unit: 'cigarettes' },
+    { name: 'totChol', label: 'Total Cholesterol', min: 107, max: 500, step: 1, icon: '🩸', unit: 'mg/dL' },
+    { name: 'sysBP', label: 'Systolic BP', min: 83.5, max: 295, step: 0.5, icon: '❤️', unit: 'mmHg' },
+    { name: 'diaBP', label: 'Diastolic BP', min: 48, max: 142.5, step: 0.5, icon: '❤️', unit: 'mmHg' },
+    { name: 'BMI', label: 'BMI', min: 15.54, max: 56.8, step: 0.1, icon: '⚖️', unit: 'kg/m²' },
+    { name: 'heartRate', label: 'Heart Rate', min: 44, max: 143, step: 1, icon: '💓', unit: 'bpm' },
+    { name: 'glucose', label: 'Glucose', min: 40, max: 394, step: 1, icon: '🩸', unit: 'mg/dL' },
+  ];
+
   return (
     <div className="p-8">
       <motion.div
@@ -70,23 +72,21 @@ const DiabetesPredictor: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         className="max-w-7xl mx-auto"
       >
-        {/* Header */}
         <div className="gradient-bg rounded-2xl p-8 text-white mb-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold mb-2">Diabetes Risk Prediction</h1>
-              <p className="opacity-90">SVC machine learning model for diabetes detection</p>
+              <h1 className="text-3xl font-bold mb-2">Hypertension Risk Prediction</h1>
+              <p className="opacity-90">Extra Trees machine learning model for blood pressure assessment</p>
               <div className="flex gap-4 mt-3">
-                <span className="text-sm bg-white/20 px-3 py-1 rounded-full">Accuracy: 85%</span>
-                <span className="text-sm bg-white/20 px-3 py-1 rounded-full">8 Input Features</span>
+                <span className="text-sm bg-white/20 px-3 py-1 rounded-full">Accuracy: 82%</span>
+                <span className="text-sm bg-white/20 px-3 py-1 rounded-full">10 Input Features</span>
               </div>
             </div>
-            <Droplets className="w-16 h-16 opacity-50" />
+            <Heart className="w-16 h-16 opacity-50" />
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Form Section */}
           <div className="bg-white rounded-xl shadow-lg p-6">
             <h2 className="text-xl font-semibold mb-4 flex items-center">
               <Activity className="w-5 h-5 mr-2 text-primary-600" />
@@ -94,6 +94,64 @@ const DiabetesPredictor: React.FC = () => {
             </h2>
             
             <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Gender Selection */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Gender</label>
+                <div className="flex space-x-4">
+                  <button
+                    type="button"
+                    onClick={() => setFormData({ ...formData, male: 0 })}
+                    className={`flex-1 py-2 px-4 rounded-lg font-medium transition-all ${
+                      formData.male === 0
+                        ? 'bg-primary-600 text-white'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    Female
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setFormData({ ...formData, male: 1 })}
+                    className={`flex-1 py-2 px-4 rounded-lg font-medium transition-all ${
+                      formData.male === 1
+                        ? 'bg-primary-600 text-white'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    Male
+                  </button>
+                </div>
+              </div>
+
+              {/* BP Medication */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Blood Pressure Medication</label>
+                <div className="flex space-x-4">
+                  <button
+                    type="button"
+                    onClick={() => setFormData({ ...formData, BPMeds: 0 })}
+                    className={`flex-1 py-2 px-4 rounded-lg font-medium transition-all ${
+                      formData.BPMeds === 0
+                        ? 'bg-primary-600 text-white'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    No
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setFormData({ ...formData, BPMeds: 1 })}
+                    className={`flex-1 py-2 px-4 rounded-lg font-medium transition-all ${
+                      formData.BPMeds === 1
+                        ? 'bg-primary-600 text-white'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    Yes
+                  </button>
+                </div>
+              </div>
+              
               {inputFields.map((field) => (
                 <div key={field.name}>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -104,12 +162,12 @@ const DiabetesPredictor: React.FC = () => {
                     step={field.step}
                     min={field.min}
                     max={field.max}
-                    value={formData[field.name as keyof DiabetesData]}
-                    onChange={(e) => handleChange(field.name as keyof DiabetesData, e.target.value)}
+                    value={formData[field.name as keyof HypertensionData]}
+                    onChange={(e) => handleChange(field.name as keyof HypertensionData, e.target.value)}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
                     required
                   />
-                  <p className="text-xs text-gray-400 mt-1">Valid range: {field.min} - {field.max}</p>
+                  <p className="text-xs text-gray-400 mt-1">Range: {field.min} - {field.max}</p>
                 </div>
               ))}
               
@@ -118,12 +176,11 @@ const DiabetesPredictor: React.FC = () => {
                 disabled={loading}
                 className="w-full gradient-bg text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all disabled:opacity-50 mt-6"
               >
-                {loading ? <LoadingSpinner size="sm" color="white" /> : 'Predict Diabetes Risk'}
+                {loading ? <LoadingSpinner size="sm" color="white" /> : 'Predict Hypertension Risk'}
               </button>
             </form>
           </div>
           
-          {/* Results Section */}
           <div className="bg-white rounded-xl shadow-lg p-6">
             <h2 className="text-xl font-semibold mb-4 flex items-center">
               <TrendingUp className="w-5 h-5 mr-2 text-green-600" />
@@ -136,7 +193,6 @@ const DiabetesPredictor: React.FC = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 className="space-y-4"
               >
-                {/* Prediction Status */}
                 <div className={`p-4 rounded-lg border ${getRiskColor(result.risk_level)}`}>
                   <div className="flex items-center">
                     {result.prediction === 1 ? (
@@ -148,7 +204,6 @@ const DiabetesPredictor: React.FC = () => {
                   </div>
                 </div>
                 
-                {/* Risk Level Badge */}
                 <div className="flex justify-between items-center">
                   <span className="text-sm font-medium text-gray-700">Risk Level</span>
                   <span className={`px-3 py-1 rounded-full text-sm font-semibold text-white ${getRiskBadgeColor(result.risk_level)}`}>
@@ -156,7 +211,6 @@ const DiabetesPredictor: React.FC = () => {
                   </span>
                 </div>
                 
-                {/* Confidence Bar */}
                 <div>
                   <div className="flex justify-between mb-2">
                     <span className="text-sm font-medium text-gray-700">Confidence Score</span>
@@ -170,7 +224,6 @@ const DiabetesPredictor: React.FC = () => {
                   </div>
                 </div>
                 
-                {/* Recommendations */}
                 {result.recommendations && result.recommendations.length > 0 && (
                   <div className="bg-gray-50 rounded-lg p-4">
                     <h3 className="font-semibold text-gray-800 mb-2 flex items-center">
@@ -188,14 +241,12 @@ const DiabetesPredictor: React.FC = () => {
                   </div>
                 )}
                 
-                {/* Disclaimer */}
                 <div className="bg-blue-50 rounded-lg p-3">
                   <p className="text-xs text-blue-700">
-                    <strong>Note:</strong> This prediction is based on statistical analysis and should not replace professional medical advice.
+                    <strong>Note:</strong> This assessment is for informational purposes. Consult a cardiologist for proper evaluation.
                   </p>
                 </div>
                 
-                {/* Timestamp */}
                 <div className="text-right">
                   <p className="text-xs text-gray-400">
                     Predicted: {new Date(result.timestamp).toLocaleString()}
@@ -204,9 +255,9 @@ const DiabetesPredictor: React.FC = () => {
               </motion.div>
             ) : (
               <div className="text-center text-gray-400 py-12">
-                <Droplets className="w-12 h-12 mx-auto mb-3 opacity-50" />
-                <p>Enter patient data and click "Predict Diabetes Risk"</p>
-                <p className="text-sm mt-2">The model will analyze the input and provide risk assessment</p>
+                <Heart className="w-12 h-12 mx-auto mb-3 opacity-50" />
+                <p>Enter patient data and click "Predict Hypertension Risk"</p>
+                <p className="text-sm mt-2">The model will analyze blood pressure risk factors</p>
               </div>
             )}
           </div>
@@ -216,4 +267,4 @@ const DiabetesPredictor: React.FC = () => {
   );
 };
 
-export default DiabetesPredictor;
+export default HypertensionPredictor;

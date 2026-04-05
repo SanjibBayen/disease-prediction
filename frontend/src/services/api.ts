@@ -1,7 +1,10 @@
 import axios from 'axios';
-import { type DiabetesData, type PredictionResult } from '../types';
+import { 
+  DiabetesData, AsthmaData, CardioData, StrokeData, HypertensionData,
+  PredictionResult, HealthCheckResponse, MentalHealthResponse, SleepData
+} from '../types';
 
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -11,7 +14,6 @@ const api = axios.create({
   timeout: 30000,
 });
 
-// Add response interceptor for better error handling
 api.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -21,18 +23,28 @@ api.interceptors.response.use(
 );
 
 export const healthAPI = {
-  checkHealth: () => api.get('/api/health'),
+  checkHealth: (): Promise<{ data: HealthCheckResponse }> => api.get('/api/health'),
   
   predictDiabetes: (data: DiabetesData): Promise<{ data: PredictionResult }> => 
     api.post('/api/predict/diabetes', data),
   
-  predictAsthma: (data: any) => api.post('/api/predict/asthma', data),
+  predictAsthma: (data: AsthmaData): Promise<{ data: PredictionResult }> => 
+    api.post('/api/predict/asthma', data),
   
-  predictCardio: (data: any) => api.post('/api/predict/cardio', data),
+  predictCardio: (data: CardioData): Promise<{ data: PredictionResult }> => 
+    api.post('/api/predict/cardio', data),
   
-  predictStroke: (data: any) => api.post('/api/predict/stroke', data),
+  predictStroke: (data: StrokeData): Promise<{ data: PredictionResult }> => 
+    api.post('/api/predict/stroke', data),
   
-  predictHypertension: (data: any) => api.post('/api/predict/hypertension', data),
+  predictHypertension: (data: HypertensionData): Promise<{ data: PredictionResult }> => 
+    api.post('/api/predict/hypertension', data),
+  
+  predictMentalHealth: (text: string): Promise<{ data: MentalHealthResponse }> => 
+    api.post('/api/predict/mental-health', { text }),
+  
+  predictSleep: (data: SleepData): Promise<{ data: PredictionResult }> => 
+    api.post('/api/predict/sleep', data),
 };
 
 export default api;

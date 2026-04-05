@@ -1,9 +1,19 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import Sidebar from './components/Layout/Sidebar';
 import Header from './components/Layout/Header';
 import Dashboard from './pages/Dashboard';
 import DiabetesPredictor from './pages/DiabetesPredictor';
+import HypertensionPredictor from './pages/HypertensionPredictor';
+import CardiovascularPredictor from './pages/CardiovascularPredictor';
+import StrokePredictor from './pages/StrokePredictor';
+import AsthmaPredictor from './pages/AsthmaPredictor';
+import MentalHealthPredictor from './pages/MentalHealthPredictor';
+import SleepHealthPredictor from './pages/SleepHealthPredictor';
+import Analytics from './pages/Analytics';
+
+
 
 function App() {
   return (
@@ -16,17 +26,38 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/diabetes" element={<DiabetesPredictor />} />
-              <Route path="/hypertension" element={<div className="p-8"><h1>Hypertension Prediction</h1></div>} />
-              <Route path="/cardiovascular" element={<div className="p-8"><h1>Cardiovascular Prediction</h1></div>} />
-              <Route path="/stroke" element={<div className="p-8"><h1>Stroke Prediction</h1></div>} />
-              <Route path="/asthma" element={<div className="p-8"><h1>Asthma Prediction</h1></div>} />
-              <Route path="/sleep" element={<div className="p-8"><h1>Sleep Health Analysis</h1></div>} />
-              <Route path="/consultant" element={<div className="p-8"><h1>Medical Consultant</h1></div>} />
-              <Route path="/analytics" element={<div className="p-8"><h1>Analytics Dashboard</h1></div>} />
-              <Route path="/settings" element={<div className="p-8"><h1>Settings</h1></div>} />
+              <Route path="/hypertension" element={<HypertensionPredictor />} />
+              <Route path="/cardiovascular" element={<CardiovascularPredictor />} />
+              <Route path="/stroke" element={<StrokePredictor />} />
+              <Route path="/asthma" element={<AsthmaPredictor />} />
+              <Route path="/mental-health" element={<MentalHealthPredictor />} />
+              <Route path="/sleep" element={<SleepHealthPredictor />} />
+              <Route path="/analytics" element={<Analytics />} />
             </Routes>
           </main>
         </div>
+        <Toaster 
+          position="top-right"
+          toastOptions={{
+            duration: 4000,
+            style: {
+              background: '#363636',
+              color: '#fff',
+            },
+            success: {
+              iconTheme: {
+                primary: '#10b981',
+                secondary: '#fff',
+              },
+            },
+            error: {
+              iconTheme: {
+                primary: '#ef4444',
+                secondary: '#fff',
+              },
+            },
+          }}
+        />
       </div>
     </Router>
   );

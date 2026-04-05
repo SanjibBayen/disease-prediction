@@ -1,4 +1,4 @@
-// Export all types
+// Prediction Input Types
 export interface DiabetesData {
   pregnancies: number;
   glucose: number;
@@ -53,18 +53,44 @@ export interface HypertensionData {
   glucose: number;
 }
 
+export interface SleepData {
+  gender: string;
+  age: number;
+  occupation: string;
+  sleep_duration: number;
+  quality_of_sleep: number;
+  physical_activity_level: number;
+  stress_level: number;
+  bmi_category: string;
+  blood_pressure: string;
+  heart_rate: number;
+  daily_steps: number;
+}
+
 export interface PredictionResult {
   success: boolean;
   prediction: number;
   probability: number;
-  risk_level: string;
+  risk_level: 'Low' | 'Moderate' | 'High';
   message: string;
   recommendations: string[];
   timestamp: string;
 }
 
-export interface ApiResponse<T = any> {
-  data: T;
-  message?: string;
-  status: number;
+export interface HealthCheckResponse {
+  status: string;
+  models_loaded: number;
+  models: string[];
+  version: string;
+  timestamp: string;
+}
+
+export interface MentalHealthResponse {
+  success: boolean;
+  depression_risk: number;
+  anxiety_risk: number;
+  risk_level: string;
+  message: string;
+  recommendations: string[];
+  timestamp: string;
 }

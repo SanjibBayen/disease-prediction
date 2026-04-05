@@ -605,6 +605,7 @@ class HypertensionInput(BaseHealthModel):
     }
 
 
+
 # ============================================================================
 # RESPONSE MODELS
 # ============================================================================
@@ -752,6 +753,126 @@ class MentalHealthResponse(BaseModel):
         }
     }
 
+class SleepHealthInput(BaseModel):
+    """Input data for sleep health prediction"""
+    gender: str = Field(
+        default="Male",
+        description="Gender (Male/Female)",
+        examples=["Male", "Female"]
+    )
+    age: int = Field(
+        default=35,
+        ge=27,
+        le=59,
+        description="Age in years",
+        examples=[35, 45, 55]
+    )
+    occupation: str = Field(
+        default="Software Engineer",
+        description="Occupation type",
+        examples=["Software Engineer", "Doctor", "Teacher", "Business"]
+    )
+    sleep_duration: float = Field(
+        default=7.0,
+        ge=5.8,
+        le=8.5,
+        description="Sleep duration in hours",
+        examples=[7.2, 6.5, 8.0]
+    )
+    quality_of_sleep: int = Field(
+        default=7,
+        ge=4,
+        le=9,
+        description="Quality of sleep (1-10 scale)",
+        examples=[7, 5, 8]
+    )
+    physical_activity_level: int = Field(
+        default=45,
+        ge=30,
+        le=90,
+        description="Physical activity in minutes per day",
+        examples=[45, 60, 30]
+    )
+    stress_level: int = Field(
+        default=5,
+        ge=3,
+        le=8,
+        description="Stress level (1-10 scale)",
+        examples=[5, 7, 4]
+    )
+    bmi_category: str = Field(
+        default="Normal",
+        description="BMI category",
+        examples=["Normal", "Overweight", "Obese"]
+    )
+    blood_pressure: str = Field(
+        default="120/80",
+        pattern="^\d{2,3}/\d{2,3}$",
+        description="Blood pressure (systolic/diastolic)",
+        examples=["120/80", "130/85", "140/90"]
+    )
+    heart_rate: int = Field(
+        default=72,
+        ge=65,
+        le=86,
+        description="Heart rate in beats per minute",
+        examples=[72, 78, 68]
+    )
+    daily_steps: int = Field(
+        default=7000,
+        ge=3000,
+        le=10000,
+        description="Daily steps count",
+        examples=[7000, 8500, 5000]
+    )
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "gender": "Male",
+                "age": 35,
+                "occupation": "Software Engineer",
+                "sleep_duration": 7.2,
+                "quality_of_sleep": 7,
+                "physical_activity_level": 45,
+                "stress_level": 5,
+                "bmi_category": "Normal",
+                "blood_pressure": "120/80",
+                "heart_rate": 72,
+                "daily_steps": 7000
+            }
+        }
+
+class SleepHealthResponse(BaseModel):
+    """Sleep health prediction response model"""
+    success: bool = Field(default=True, description="Whether the prediction was successful")
+    prediction: int = Field(..., description="Prediction result (0=No Disorder, 1=Sleep Disorder)")
+    probability: float = Field(..., description="Confidence probability (0-100)", ge=0, le=100)
+    risk_level: str = Field(..., description="Risk level (Low/Moderate/High)")
+    message: str = Field(..., description="Human-readable prediction message")
+    recommendations: List[str] = Field(default_factory=list, description="Sleep hygiene recommendations")
+    sleep_score: Optional[float] = Field(None, description="Overall sleep quality score (0-100)")
+    factors_affected: Optional[List[str]] = Field(None, description="Sleep factors that need attention")
+    timestamp: str = Field(default_factory=lambda: datetime.now().isoformat())
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "success": True,
+                "prediction": 0,
+                "probability": 78.5,
+                "risk_level": "Low",
+                "message": "Good sleep health detected",
+                "recommendations": [
+                    "Maintain consistent sleep schedule",
+                    "Create relaxing bedtime routine"
+                ],
+                "sleep_score": 82,
+                "factors_affected": [],
+                "timestamp": "2024-01-01T12:00:00"
+            }
+        }
+
 # ============================================================================
 # BATCH PREDICTION MODELS
 # ============================================================================
@@ -779,3 +900,5 @@ class BatchPredictionResponse(BaseModel):
     results: List[PredictionResponse] = Field(..., description="List of individual prediction results")
     total_processed: int = Field(..., description="Total number of predictions processed")
     timestamp: str = Field(default_factory=lambda: datetime.now().isoformat(), description="Response timestamp")
+
+    
