@@ -3,10 +3,12 @@
 
 [![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115-green.svg)](https://fastapi.tiangolo.com/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![React](https://img.shields.io/badge/React-18-blue.svg)](https://reactjs.org/)
 [![Vite](https://img.shields.io/badge/Vite-5-purple.svg)](https://vitejs.dev/)
-[![Render](https://img.shields.io/badge/Deployed-Render-purple.svg)](https://render.com)
+[![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://docker.com)
+[![Render](https://img.shields.io/badge/Render-Deployed-success.svg)](https://render.com)
+[![Vercel](https://img.shields.io/badge/Vercel-Deployed-black.svg)](https://vercel.com)
+[![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 An **AI-powered healthcare prediction system** that leverages machine learning to assess disease risks and provide personalized health insights.
 
@@ -14,8 +16,11 @@ An **AI-powered healthcare prediction system** that leverages machine learning t
 
 ## 🌐 Live Demo
 
-- **API Endpoint:** https://disease-prediction-72fh.onrender.com  
-- **API Docs (Swagger):** https://disease-prediction-72fh.onrender.com/docs  
+| Service | URL | Status |
+|---------|-----|--------|
+| **Backend API** | https://disease-prediction-72fh.onrender.com | 🟢 Live |
+| **API Documentation** | https://disease-prediction-72fh.onrender.com/docs | 🟢 Live |
+| **Frontend (Vercel)** | https://disease-prediction-beige.vercel.app | 🟢 Live |
 
 ---
 
@@ -271,7 +276,8 @@ Always consult a medical professional.
 
 - **Author:** Sanjib Bayen  
 - **GitHub:** https://github.com/SanjibBayen  
-- **Email:** sanjibbayen11@gmail.com  
+- **Email:** sanjibbayen11@gmail.com
+- **Project**	https://github.com/SanjibBayen/disease-prediction
 
 ---
 
@@ -281,7 +287,8 @@ Always consult a medical professional.
 - Hugging Face  
 - FastAPI  
 - Render  
-- Scikit-learn  
+- Scikit-learn
+- Vercel 
 
 ---
 
