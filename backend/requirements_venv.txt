@@ -1,0 +1,42 @@
+# =========================
+# Core (REQUIRED)
+# =========================
+fastapi==0.115.0
+uvicorn[standard]==0.30.0
+python-multipart==0.0.9
+python-dotenv==1.0.1
+
+# =========================
+# Data Processing (REQUIRED) - UPDATED for Python 3.14
+# =========================
+numpy>=2.0.0,<3.0.0
+pandas>=2.2.0
+
+# =========================
+# Machine Learning (REQUIRED)
+# =========================
+scikit-learn>=1.6.0
+xgboost>=2.1.0
+joblib>=1.4.0
+
+# =========================
+# Utilities
+# =========================
+httpx>=0.27.0
+websockets>=13.0
+
+pytz>=2024.1
+
+
+# Activate environment (when you reopen terminal)
+# cd D:\A-Local Files\Projects\disease-prediction\backend
+# venv\Scripts\activate
+
+# Start server
+# python run.py
+
+# Or with uvicorn directly
+# uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+
+# Deactivate when done
+deactivate
