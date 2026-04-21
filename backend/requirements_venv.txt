@@ -18,7 +18,7 @@ pandas>=2.2.0
 scikit-learn>=1.6.0
 xgboost>=2.1.0
 joblib>=1.4.0
-
+imbalanced-learn>=0.11.0
 # =========================
 # Utilities
 # =========================
@@ -39,4 +39,4 @@ pytz>=2024.1
 # uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 # Deactivate when done
-deactivate
+#deactivate
